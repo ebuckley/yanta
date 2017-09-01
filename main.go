@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ebuckley/marked/context"
+	"github.com/ebuckley/marked/dashboard"
 	"github.com/ebuckley/marked/pdf"
 )
 
@@ -22,33 +23,20 @@ func main() {
 	}
 	fmt.Println("marked loaded these files.\n", pages)
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello index!")
-	})
+	http.HandleFunc("/", dashboard.CreateHandler(pages))
 
 	for _, page := range pages {
-		log.Println("setup for", "/"+page.Path)
+		// we need to have a closure over this variable
+		thisPage := page
 		http.HandleFunc("/"+page.Path, func(w http.ResponseWriter, req *http.Request) {
-			log.Println("handle for", "/"+page.Path)
-			_, err = fmt.Fprint(w, page.Html)
+			_, err = fmt.Fprint(w, thisPage.Html)
 			if err != nil {
-				log.Fatal("fatal error sending payload", page)
+				log.Fatal("fatal error sending payload", thisPage)
 			}
 		})
 
 		downloadPdf := "/" + page.Path + "/pdf"
-		http.HandleFunc(downloadPdf, func(w http.ResponseWriter, req *http.Request) {
-			data, err := pdf.Download(page)
-			if err != nil {
-				log.Fatal("failed to download ", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-			_, err = w.Write(data)
-			if err != nil {
-				log.Fatal("failed to write content", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-		})
+		http.HandleFunc(downloadPdf, pdf.CreatePageDownloader(thisPage))
 	}
 
 	log.Println("Started on :1337")

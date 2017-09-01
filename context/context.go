@@ -55,7 +55,6 @@ func GetHTMLs(sitePath string) ([]*Page, error) {
 		return nil, err
 	}
 
-	log.Println(data[0].Html)
 	return data, nil
 }
 
