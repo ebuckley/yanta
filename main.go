@@ -1,43 +1,64 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"log"
 	"net/http"
+	"regexp"
+	"strings"
 
-	"github.com/ebuckley/marked/context"
 	"github.com/ebuckley/marked/dashboard"
+	"github.com/ebuckley/marked/page"
 	"github.com/ebuckley/marked/pdf"
+	"github.com/ebuckley/marked/site"
+	"github.com/gorilla/mux"
 )
 
 var (
 	bufferLength = 1024
 )
 
-const sitePath = "./site"
+func makePageMatcher(s string) mux.MatcherFunc {
+	re := regexp.MustCompile("/" + s + "/.*$")
+	return func(r *http.Request, rm *mux.RouteMatch) bool {
+		match := re.MatchString(r.URL.Path)
+		// TODO handle error from regex
+		if match {
+			path := strings.TrimPrefix(r.URL.Path, "/"+s+"/")
+			rm.Vars = make(map[string]string)
+			rm.Vars["path"] = path
+		}
+		return match
+	}
+}
 
 func main() {
-	pages, err := context.GetHTMLs(sitePath)
-	if err != nil {
-		log.Fatal("It all broke!")
-	}
-	fmt.Println("marked loaded these files.\n", pages)
+	var appDir string
+	flag.StringVar(&appDir, "dir", "./docs", "site directory")
+	flag.Parse()
 
-	http.HandleFunc("/", dashboard.CreateHandler(pages))
+	s := site.New(site.SitePath(appDir))
 
-	for _, page := range pages {
-		// we need to have a closure over this variable
-		thisPage := page
-		http.HandleFunc("/"+page.Path, func(w http.ResponseWriter, req *http.Request) {
-			_, err = fmt.Fprint(w, thisPage.Html)
-			if err != nil {
-				log.Fatal("fatal error sending payload", thisPage)
-			}
-		})
+	r := mux.NewRouter()
 
-		downloadPdf := "/" + page.Path + "/pdf"
-		http.HandleFunc(downloadPdf, pdf.CreatePageDownloader(thisPage))
-	}
+	r.HandleFunc("/", dashboard.CreateHandler(s))
+
+	r.Methods("GET").
+		MatcherFunc(makePageMatcher("page")).
+		HandlerFunc(page.LookupHandler(s))
+
+	r.Methods("POST").
+		MatcherFunc(makePageMatcher("page")).
+		HandlerFunc(page.UpsertPageHandler(s))
+
+	r.MatcherFunc(makePageMatcher("pdf")).
+		HandlerFunc(pdf.LookupHandler(s))
+
+	r.Methods("GET").
+		MatcherFunc(makePageMatcher("edit")).
+		HandlerFunc(page.ViewUpsert(s))
+
+	http.Handle("/", r)
 
 	log.Println("Started on :1337")
 	log.Fatal(http.ListenAndServe(":1337", nil))

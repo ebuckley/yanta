@@ -9,11 +9,7 @@ import (
 	"strings"
 
 	"github.com/ebuckley/marked/context"
-)
-
-const (
-	// TmpDir is the directory of temporary pdf files
-	TmpDir = "/tmp"
+	"github.com/ebuckley/marked/site"
 )
 
 func printCommand(cmd *exec.Cmd) {
@@ -43,11 +39,11 @@ func GetPdfCommand(url string, path string) *exec.Cmd {
 }
 
 // Download a page pdf file
-func Download(page *context.Page) ([]byte, error) {
-	pdfPath := filepath.Join(TmpDir, page.Hash()+".pdf")
+func Download(cfg *site.Config, page *context.Page) ([]byte, error) {
+	pdfPath := filepath.Join(cfg.TmpDir, page.Hash()+".pdf")
 	if !hasFile(pdfPath) {
 		log.Println("pdf cache miss", page)
-		cmd := GetPdfCommand("http://localhost:1337/"+page.Path, pdfPath)
+		cmd := GetPdfCommand("http://localhost:1337/page/"+page.Path, pdfPath)
 		_, err := cmd.CombinedOutput()
 		if err != nil {
 			return nil, err
