@@ -11,6 +11,7 @@ The amount of directions I could go is immense, it helps to break down features 
 ### Saas
 - Publish/Sync
 - password/user
+- read only vs public
 - private images
 
 ### Document system
@@ -20,6 +21,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - Search
 - Latest page
 - private images
+- backup
 
 ### Command line tool
 - Publish/Sync
