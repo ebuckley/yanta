@@ -7,7 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 
-	"github.com/ebuckley/marked/site"
+	"github.com/ebuckley/yanta/site"
 )
 
 type upsertRequest struct {

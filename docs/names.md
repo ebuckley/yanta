@@ -1,6 +1,7 @@
 # marked
 
 what is this tool going to be named?
+**answer** We called YANTA now :)
 
 - share
 - godo (cli)

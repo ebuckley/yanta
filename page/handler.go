@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"text/template"
 
-	"github.com/ebuckley/marked/context"
-	"github.com/ebuckley/marked/site"
+	"github.com/ebuckley/yanta/context"
+	"github.com/ebuckley/yanta/site"
 	"github.com/gorilla/mux"
 )
 

@@ -26,13 +26,15 @@ The amount of directions I could go is immense, it helps to break down features 
 ### Command line tool
 - Publish/Sync
 - private images
+- Revisions on page (commit changes)
+- publish static site
 
 ### Parking
-- Better name
 - Better pdf export
 
 # Done :)
 - images
+- ~~Better name~~ We're now called Yanta.
 - edit [markdown editor](https://github.com/sparksuite/simplemde-markdown-editor)
 - extract as a binary for running locally anywhere
 - refresh solution

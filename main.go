@@ -7,10 +7,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ebuckley/marked/dashboard"
-	"github.com/ebuckley/marked/page"
-	"github.com/ebuckley/marked/pdf"
-	"github.com/ebuckley/marked/site"
+	"github.com/ebuckley/yanta/dashboard"
+	"github.com/ebuckley/yanta/page"
+	"github.com/ebuckley/yanta/pdf"
+	"github.com/ebuckley/yanta/site"
+	"github.com/ebuckley/yanta/sync"
 	"github.com/gorilla/mux"
 )
 
@@ -22,7 +23,6 @@ func makePageMatcher(s string) mux.MatcherFunc {
 	re := regexp.MustCompile("/" + s + "/.*$")
 	return func(r *http.Request, rm *mux.RouteMatch) bool {
 		match := re.MatchString(r.URL.Path)
-		// TODO handle error from regex
 		if match {
 			path := strings.TrimPrefix(r.URL.Path, "/"+s+"/")
 			rm.Vars = make(map[string]string)
@@ -51,12 +51,17 @@ func main() {
 		MatcherFunc(makePageMatcher("page")).
 		HandlerFunc(page.UpsertPageHandler(s))
 
-	r.MatcherFunc(makePageMatcher("pdf")).
-		HandlerFunc(pdf.LookupHandler(s))
-
 	r.Methods("GET").
 		MatcherFunc(makePageMatcher("edit")).
 		HandlerFunc(page.ViewUpsert(s))
+
+	// r.HandleFunc("/new", page.CreateHandler(s))
+
+	r.MatcherFunc(makePageMatcher("pdf")).
+		HandlerFunc(pdf.LookupHandler(s))
+
+	r.HandleFunc("/publish", sync.PublishHandler(s))
+	r.HandleFunc("/pull", sync.PullHandler(s))
 
 	http.Handle("/", r)
 

@@ -113,6 +113,10 @@ func (i IterationError) Error() string {
 }
 
 func eachFile(folder *os.File, path string, fn FileFunc) (err error) {
+	if folder.Name() == ".git" {
+		return nil
+	}
+
 	files, err := folder.Readdir(-1)
 	if err != nil {
 		return err

@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ebuckley/marked/site"
+	"github.com/ebuckley/yanta/site"
 )
 
 const pageContent = `
@@ -32,8 +32,12 @@ const pageContent = `
 	</head>
 	<body>
 		<h1>What are you waiting for?</h1>
+		{{if .CanPublish}}
+			 <a href="/publish">Publish</a>
+			 <a href="/pull">Pull</a>
+		{{end}}
 		<table>
-		{{range .}}
+		{{range .Pages}}
 			<tr>
 				<td>
 					<a href="/page/{{.Path}}" target="_blank" >
@@ -70,7 +74,7 @@ func CreateHandler(s *site.Site) http.HandlerFunc {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		err = t.Execute(w, s.Pages)
+		err = t.Execute(w, s)
 		if err != nil {
 			log.Fatal("could not execute template", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
