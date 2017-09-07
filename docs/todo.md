@@ -13,6 +13,8 @@ The amount of directions I could go is immense, it helps to break down features 
 - password/user
 - read only vs public
 - private images
+- site
+- payment integration
 
 ### Document system
 - Timestamp on page
@@ -24,6 +26,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - backup
 
 ### Command line tool
+- clone from url
 - Publish/Sync
 - private images
 - Revisions on page (commit changes)

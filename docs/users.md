@@ -8,7 +8,7 @@ Who the hell am I targetting with this anyway?
 
 **Demographic:**
 				- 25-35 years old
-				- Reads hacker.news daily
+				- Reads hacker news daily
 				- lives in the command line
 				- Has a BSC or BE. 
 				- Seen employment in fortune 500 as well as startups, failed and succesful exit.
@@ -27,7 +27,36 @@ At work she is:
 ## Sam Analyst
 ![](https://media.giphy.com/media/26hiu3mZVquuykwhy/giphy.gif)
 ** Job Title: ** Business Analyst
+
 **Demographic:**
 
-## Bob Th'bureaucrat
+- 20-40 years old
+- background not neccessarily technical
+- has written code or worked in a technical area before
+
+**Goals and Tasks:**
+Sam analyst reports to Annabell and works with colleagues to build documentation and proof of work.
+
+At work he:
+
+- organizes meetings, runs ceremonies.
+- translates initiatives from the business to software requirements
+- sets expectation on delivery with Bob Th'bureaucrat
+- builds reports for Annabell
+
+## Annabell Bill
 ![](http://i3.kym-cdn.com/photos/images/newsfeed/000/431/312/67e.jpg)
+
+**Job Title**  Chief Cat herder
+
+**Demographic**
+
+- 40-60 years old
+- MBA background
+- Not influencing the direction on a daily basis
+- Overviews many teams of people
+- Wants to know everyting relevant in an easy to consume format.
+
+At work She:
+
+- Requests reports and data on teams and projects
