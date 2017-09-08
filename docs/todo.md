@@ -18,7 +18,6 @@ The amount of directions I could go is immense, it helps to break down features 
 
 ### Document system
 - Timestamp on page
-- Create a new page
 - Revisions on page
 - Search
 - Latest page
@@ -36,6 +35,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - Better pdf export
 
 # Done :)
+- create a new page
 - images
 - ~~Better name~~ We're now called Yanta.
 - edit [markdown editor](https://github.com/sparksuite/simplemde-markdown-editor)

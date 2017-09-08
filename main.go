@@ -55,7 +55,13 @@ func main() {
 		MatcherFunc(makePageMatcher("edit")).
 		HandlerFunc(page.ViewUpsert(s))
 
-	// r.HandleFunc("/new", page.CreateHandler(s))
+	r.Methods("GET").
+		Path("/new").
+		HandlerFunc(page.NewPageHandler(s))
+
+	r.Methods("POST").
+		Path("/new").
+		HandlerFunc(page.UpsertPageHandler(s))
 
 	r.MatcherFunc(makePageMatcher("pdf")).
 		HandlerFunc(pdf.LookupHandler(s))

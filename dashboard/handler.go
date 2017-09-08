@@ -27,15 +27,28 @@ const pageContent = `
 		 a:hover {
 			 color: #FFB03B;
 		 }
+		 .btn-primary {
+			 border: 1px solid #a2a2a2;
+			 border-radius: 3px;
+			 padding: 4px;
+			 text-transform: uppercase;
+			 color: #3E606F;
+		 }
+		 .nav {
+			 margin-bottom: 16px;
+		 }
 		</style>
 		<meta http-equiv="refresh" content="2">
 	</head>
 	<body>
-		<h1>What are you waiting for?</h1>
-		{{if .CanPublish}}
-			 <a href="/publish">Publish</a>
-			 <a href="/pull">Pull</a>
-		{{end}}
+		<h1>{{.Config.ApplicationName}}</h1>
+		<div class='nav'>
+			<a class='btn-primary' href="/new">new</a>
+			{{if .CanPublish}}
+				<a class='btn-primary' href="/publish">Publish</a>
+				<a class='btn-primary' href="/pull">Pull</a>
+			{{end}}
+		</div>
 		<table>
 		{{range .Pages}}
 			<tr>

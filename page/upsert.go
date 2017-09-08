@@ -3,6 +3,7 @@ package page
 import (
 	"log"
 	"net/http"
+	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
@@ -11,7 +12,8 @@ import (
 )
 
 type upsertRequest struct {
-	Content string `schema:"content"`
+	PageName string `schema:"pagename"`
+	Content  string `schema:"content"`
 }
 
 // UpsertPageHandler is a function which returns a handler for updating a page!
@@ -39,6 +41,10 @@ func UpsertPageHandler(s *site.Site) http.HandlerFunc {
 			log.Println("Could not handle request..", err)
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
+		}
+
+		if upsertReq.PageName != "" {
+			path = filepath.Join(s.Config.SitePath, upsertReq.PageName)
 		}
 
 		// add a file!

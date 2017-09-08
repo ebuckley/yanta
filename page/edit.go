@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const editPageContent = `
+const upsertPageContent = `
 <html>
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Inconsolata|Nunito+Sans" rel="stylesheet">
@@ -29,11 +29,17 @@ const editPageContent = `
 		 a:hover {
 			 color: #FFB03B;
 		 }
+		.btn-primary {
+			border: 1px solid #a2a2a2;
+			border-radius: 3px;
+			padding: 4px;
+			text-transform: uppercase;
+			color: #3E606F;
+		}
+		.nav {
+			margin-bottom: 16px;
+		}
 
-		 .content {
-			 max-width: 700px;
-			 margin: 0 auto 0;
-		 }
 		</style>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
@@ -50,9 +56,14 @@ const editPageContent = `
 	</head>
 	<body>
 			<div class=".content">
+			{{if .Path}}
 				<form action="/page/{{.Path}}" name="upsertForm" method="post">
-					<div>
-						<input class="saver" type="submit" value="Save">
+			{{else}}
+				<form action="/new" name="upsertForm" method="post">
+		  {{end}}
+					<div class='nav'>
+						{{if not .Path}}<input type="text" name="pagename"/>{{end}}
+						<input class="btn-primary" type="submit" value="Save">
 					</div>
 					<textarea name="content">{{.Content}}</textarea>
 				</form>
@@ -65,7 +76,7 @@ const editPageContent = `
 func ViewUpsert(s *site.Site) http.HandlerFunc {
 
 	tpl := template.New("upsert")
-	t, err := tpl.Parse(editPageContent)
+	t, err := tpl.Parse(upsertPageContent)
 	if err != nil {
 		log.Panic("page template couldn't be setup!", err)
 	}
