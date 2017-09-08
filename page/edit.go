@@ -62,7 +62,7 @@ const upsertPageContent = `
 				<form action="/new" name="upsertForm" method="post">
 		  {{end}}
 					<div class='nav'>
-						{{if not .Path}}<input type="text" name="pagename"/>{{end}}
+						{{if not .Path}}<input type="text" placeholder="your-new-thought.md" name="pagename"/>{{end}}
 						<input class="btn-primary" type="submit" value="Save">
 					</div>
 					<textarea name="content">{{.Content}}</textarea>

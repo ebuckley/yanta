@@ -23,6 +23,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - Latest page
 - private images
 - backup
+- optionally create new file when 404 on a page route?
 
 ### Command line tool
 - clone from url
