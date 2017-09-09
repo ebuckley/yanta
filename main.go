@@ -66,6 +66,9 @@ func main() {
 	r.MatcherFunc(makePageMatcher("pdf")).
 		HandlerFunc(pdf.LookupHandler(s))
 
+	r.MatcherFunc(makePageMatcher("history")).
+		HandlerFunc(sync.HistoryHandler(s))
+
 	r.HandleFunc("/publish", sync.PublishHandler(s))
 	r.HandleFunc("/pull", sync.PullHandler(s))
 

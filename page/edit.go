@@ -74,7 +74,6 @@ const upsertPageContent = `
 
 // ViewUpsert is for looking at the edit view :O
 func ViewUpsert(s *site.Site) http.HandlerFunc {
-
 	tpl := template.New("upsert")
 	t, err := tpl.Parse(upsertPageContent)
 	if err != nil {

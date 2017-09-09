@@ -79,7 +79,7 @@ func CreateHandler(s *site.Site) http.HandlerFunc {
 	if err != nil {
 		log.Panic("Template setup not possible", err)
 	}
-
+	//
 	return func(w http.ResponseWriter, r *http.Request) {
 		err = s.FetchPages()
 		if err != nil {
