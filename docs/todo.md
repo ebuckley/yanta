@@ -24,7 +24,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - private images
 - backup
 - optionally create new file when 404 on a page route?
-- auto add/commit on save
+
 
 ### Command line tool
 - clone from url
@@ -37,6 +37,9 @@ The amount of directions I could go is immense, it helps to break down features 
 - Better pdf export
 
 # Done :)
+![](https://media.giphy.com/media/o88b7sigrFmQE/giphy.gif)
+
+- auto add/commit on save
 - create a new page
 - images
 - ~~Better name~~ We're now called Yanta.
