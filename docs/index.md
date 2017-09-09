@@ -10,9 +10,14 @@ I made the decision to start this project for 3 reasons.
 
 # features
 - index page (autorefresh)
+- auto commit
 - pdf download
 - view page
 - sync notes with git
+- create new files
+
+# Roadmap
+See [/docs/todo.md](/docs/todo.md)
 
 # usage 
 ## Pdf export
