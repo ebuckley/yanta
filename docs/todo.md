@@ -15,6 +15,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - private images
 - site
 - payment integration
+- templates
 
 
 ### Document system
@@ -26,6 +27,7 @@ The amount of directions I could go is immense, it helps to break down features 
 - private images
 - backup
 - optionally create new file when 404 on a page route?
+- undo
 
 
 ### Command line tool
