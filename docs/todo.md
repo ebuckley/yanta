@@ -16,7 +16,9 @@ The amount of directions I could go is immense, it helps to break down features 
 - site
 - payment integration
 
+
 ### Document system
+- Compelling story for users
 - Timestamp on page
 - Revisions on page
 - Search
@@ -35,6 +37,7 @@ The amount of directions I could go is immense, it helps to break down features 
 
 ### Parking
 - Better pdf export
+- search
 
 # Done :)
 ![](https://media.giphy.com/media/o88b7sigrFmQE/giphy.gif)
