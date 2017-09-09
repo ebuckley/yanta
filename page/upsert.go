@@ -1,14 +1,17 @@
 package page
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 
 	"github.com/ebuckley/yanta/site"
+	"github.com/ebuckley/yanta/sync"
 )
 
 type upsertRequest struct {
@@ -54,6 +57,15 @@ func UpsertPageHandler(s *site.Site) http.HandlerFunc {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		hst, _ := os.Hostname()
+		msg := fmt.Sprint("automatic commit by ", hst)
+		out, err := sync.Commit(p, msg)
+		if err != nil {
+			log.Println("saved file, but could not commit change")
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		log.Println("success:", out)
 
 		http.Redirect(w, r, "/page/"+p.Path, http.StatusFound)
 	}
