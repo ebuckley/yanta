@@ -15,12 +15,12 @@ func Commit(p *context.Page, msg string) (string, error) {
 	commitCmd.Env = os.Environ()
 
 	printCommand(addCmd)
-
 	addOutput, err := addCmd.CombinedOutput()
 	if err != nil {
 		return "", err
 	}
 
+	printCommand(commitCmd)
 	commitOutput, err := commitCmd.CombinedOutput()
 	if err != nil {
 		return "", err
