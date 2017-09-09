@@ -17,7 +17,7 @@ I made the decision to start this project for 3 reasons.
 - create new files
 
 # Roadmap
-See [/pages/docs/todo.md](/pages/docs/todo.md)
+See [/page/docs/todo.md](/page/docs/todo.md)
 
 # usage 
 ## Pdf export
