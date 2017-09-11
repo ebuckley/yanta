@@ -1,6 +1,8 @@
 # Yanta's yet another note taking application
 ![](https://media.giphy.com/media/wlEPdDuMQzSkE/giphy.gif)
 
+
+
 Like todo app's note taking software is highly at risk of [NIH](https://en.wikipedia.org/wiki/Not_invented_here) syndrome. 
 I made the decision to start this project for 3 reasons.
 
