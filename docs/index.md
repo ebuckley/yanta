@@ -3,7 +3,8 @@
 
 
 
-Like todo app's note taking software is highly at risk of [NIH](https://en.wikipedia.org/wiki/Not_invented_here) syndrome. 
+Everyone out there is making todo app's and here I am making evernote/Bearwriter clones. See [NIH](https://en.wikipedia.org/wiki/Not_invented_here) syndrome. 
+
 I made the decision to start this project for 3 reasons.
 
 1. I needed some weekend code escapism. This project runs solely on the Minimum Viable, doesn't annoy me method of product management.  I'm using it to explore technology I find interesting.
