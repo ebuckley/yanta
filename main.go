@@ -46,7 +46,6 @@ func main() {
 	}
 	var s *site.Site
 	if cfg != nil {
-		log.Println("Creating site from config", cfg)
 		s = site.New(site.FromConfig(cfg))
 	} else {
 		s = site.New(site.SitePath(appDir))

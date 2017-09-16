@@ -72,7 +72,7 @@ const historyTpl = `
 
 // HistoryHandler is a handler which returns past instance
 func HistoryHandler(s *site.Site) http.HandlerFunc {
-	repo, err := git.PlainOpen(s.Config.SitePath)
+	repo, err := git.PlainOpen(s.Config.GitPath)
 	if err != nil {
 		log.Panic("err opening git", err)
 	}
