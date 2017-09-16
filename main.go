@@ -34,10 +34,23 @@ func makePageMatcher(s string) mux.MatcherFunc {
 
 func main() {
 	var appDir string
+	var configPath string
 	flag.StringVar(&appDir, "dir", "./docs", "site directory")
 	flag.Parse()
 
-	s := site.New(site.SitePath(appDir))
+	flag.StringVar(&configPath, "config", "yanta.json", "The path of your yanta config file")
+
+	cfg, err := site.DecodeConfig(configPath)
+	if err != nil {
+		log.Println("Could not load config", err)
+	}
+	var s *site.Site
+	if cfg != nil {
+		log.Println("Creating site from config", cfg)
+		s = site.New(site.FromConfig(cfg))
+	} else {
+		s = site.New(site.SitePath(appDir))
+	}
 
 	r := mux.NewRouter()
 
@@ -72,8 +85,31 @@ func main() {
 	r.HandleFunc("/publish", sync.PublishHandler(s))
 	r.HandleFunc("/pull", sync.PullHandler(s))
 
-	http.Handle("/", r)
+	r.Methods("GET").
+		Path("/config.json").
+		HandlerFunc(site.ServeConfig(s))
+
+	r.Methods("POST").
+		Path("/config.json").
+		HandlerFunc(site.UpdateConfig(s))
+
+	r.Methods("OPTIONS").
+		Path("/config.json").
+		HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		})
+
+	http.Handle("/", middleware(r))
 
 	log.Println("Started on :1337")
 	log.Fatal(http.ListenAndServe(":1337", nil))
+}
+
+func middleware(h http.Handler) http.Handler {
+	allowedHeaders := "Accept, Content-Type, Content-Length, Accept-Encoding, Authorization,X-CSRF-Token"
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("Origin"))
+		w.Header().Set("Access-Control-Allow-Method", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", allowedHeaders)
+		h.ServeHTTP(w, r)
+	})
 }
