@@ -81,6 +81,11 @@ func ViewUpsert(s *site.Site) http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		if s.Config.CanEdit == false {
+			log.Println("user tried to edit when not allowed")
+			w.WriteHeader(http.StatusForbidden)
+			return
+		}
 		vars := mux.Vars(r)
 		path := vars["path"]
 
